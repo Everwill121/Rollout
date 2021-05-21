@@ -222,6 +222,8 @@ end;
 
 procedure preparegameplay;
 begin
+// Set English Keyboard
+ LoadKeyboardLayout('00000409', KLF_ACTIVATE);
  phase:=4;
  form1.panel5.width:=sw div 4;
  form1.panel5.height:=sh div 2;
@@ -321,6 +323,9 @@ begin
    scores[i]:=ff.ReadInteger('scores', 'cursc'+inttostr(i), 1);
   end;
 
+// Set English Keyboard
+ LoadKeyboardLayout('00000409', KLF_ACTIVATE);
+
  up:=ff.ReadInteger('settings', 'up', 119);
  down:=ff.ReadInteger('settings', 'down', 115);
  lft:=ff.ReadInteger('settings', 'left', 97);
@@ -366,6 +371,7 @@ begin
  label27.Font.Name:='hellenica';
  label28.Font.Name:='hellenica';
  label29.Font.Name:='hellenica';
+ label30.Font.Name:='hellenica';
 
  form1.DoubleBuffered:=true;
  sw:=screen.width;
@@ -435,7 +441,7 @@ end;
 
 procedure TForm1.FormKeyPress(Sender: TObject; var Key: Char);
 begin
- if ord(key)=sound then mediaplayer1.Pause;
+ if (ord(key)=sound) and (label12.Visible=false) then mediaplayer1.Pause;
 
  if phase=1 then
  begin
@@ -817,6 +823,8 @@ begin
  label12.Visible:=true;
  panel5.Visible:=false;
  panel6.Visible:=false;
+///---------------------Pause gameplay-----------------------
+ timer2.Enabled:=false;
 end;
 
 procedure TForm1.Timer2Timer(Sender: TObject);
